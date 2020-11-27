@@ -1174,8 +1174,11 @@ elif isosx:
 
         libcrypto = find_library('crypto')
         if libcrypto is None:
+            libcrypto = '/usr/lib/libcrypto.dylib'
+        try:
+            libcrypto = CDLL(libcrypto)
+        except:
             raise DrmException("libcrypto not found")
-        libcrypto = CDLL(libcrypto)
 
         # From OpenSSL's crypto aes header
         #
